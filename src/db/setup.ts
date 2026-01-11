@@ -49,8 +49,8 @@ export async function resolveDatabaseConfig(nuxt: Nuxt, hub: HubConfig): Promise
         }
         break
       }
-      // Cloudflare D1 (production only - dev mode uses local libsql)
-      if (hub.hosting.includes('cloudflare') && !nuxt.options.dev) {
+      // Cloudflare D1 (production or remote dev mode)
+      if (hub.hosting.includes('cloudflare') && (!nuxt.options.dev || isRemoteDev(nuxt, hub))) {
         config.driver = 'd1'
         break
       }
